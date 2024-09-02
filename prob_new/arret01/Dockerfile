@@ -31,6 +31,10 @@ COPY scripts/remove_todo.sh /usr/local/bin/remove_todo.sh
 COPY scripts/help.sh /usr/local/bin/help.sh
 COPY scripts/todo.sh /usr/local/bin/todo.sh
 
+# Sets the permissions of added files as everything.
+# Otherwise, copied files keep the local permissions!!!!
+RUN chmod -R 777 /usr/local/bin
+
 #Add symbolic links to scripts
 RUN ln -s /usr/local/bin/list_todo.sh /usr/local/bin/liste
 RUN ln -s /usr/local/bin/remove_todo.sh /usr/local/bin/retrait
@@ -38,4 +42,4 @@ RUN ln -s /usr/local/bin/add_todo.sh /usr/local/bin/nouveau
 RUN ln -s /usr/local/bin/help.sh /usr/local/bin/aide
 RUN ln -s /usr/local/bin/todo.sh /usr/local/bin/todo
 
-CMD ["/bin/sh"]
+CMD ["sh"]
