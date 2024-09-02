@@ -52,6 +52,10 @@ COPY scripts/help_client.sh /usr/local/bin/help_client.sh
 COPY scripts/call_todo.sh /usr/local/bin/call_todo.sh
 COPY scripts/call_todo_std.sh /usr/local/bin/call_todo_std.sh
 
+# Sets the permissions of added files as everything.
+# Otherwise, copied files keep the local permissions!!!!
+RUN chmod -R 777 /usr/local/bin
+
 #Add symbolic links to scripts
 RUN ln -s /usr/local/bin/help_client.sh /usr/local/bin/aide
 RUN ln -s /usr/local/bin/call_todo.sh /usr/local/bin/call
