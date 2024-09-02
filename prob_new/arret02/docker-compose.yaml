@@ -23,8 +23,7 @@ services:
       volumes:
         - "./tmp_todo1:/todo"
       environment:
-        - MONSERVEUR='s1'
-        - MONNOM='c1'
+        - MYNAME='s1'
       build:
         context: .
         dockerfile: Dockerfile.serveur
