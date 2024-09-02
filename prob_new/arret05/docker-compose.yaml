@@ -1,6 +1,11 @@
 version: '3.2'
 
 services:
+  todo_base:
+    build:
+      context: ../base_img/
+      dockerfile: Dockerfile
+    image: todo-base
   # Premier client - Ajoute et retire des tâches automatiquement
   c1:
     container_name: arret05-c1
