@@ -6,10 +6,10 @@ services:
     container_name: arret05-c1
     build: 
       context: .
-      dockerfile: Dockerfile.clients
+      dockerfile: Dockerfile.client
     image: a5-client
-    # depends_on:
-    #   - s5
+    depends_on:
+      - s1
     environment:
       - MONSERVEUR='s1'
       - MONNOM='c1'
@@ -21,9 +21,9 @@ services:
     image: a5-client
     build: 
       context: .
-      dockerfile: Dockerfile.clients
-    # depends_on:
-    #   - s5
+      dockerfile: Dockerfile.client
+    depends_on:
+      - s1
     environment:
       - MONSERVEUR='s1'
       - MONNOM='c2'
@@ -35,9 +35,9 @@ services:
     image: a5-client
     build: 
       context: .
-      dockerfile: Dockerfile.clients
-    # depends_on:
-    #   - s5
+      dockerfile: Dockerfile.client
+    depends_on:
+      - s1
     environment:
       - MONSERVEUR='s1'
       - MONNOM='c3'
@@ -48,15 +48,17 @@ services:
     container_name: arret05-s1
     build: 
       context: .
-      dockerfile: Dockerfile.serveurs
+      dockerfile: Dockerfile.serveur
     image: a5-serveur
     tty: true
-    # depends_on:
-    # - gestionnaire
+    depends_on:
+    - gestionnaire
     environment:
       - MONSERVEUR='s1'
       - MONNOM='c1,c2,c3'
-      - "DB_HOST=db_sergtsop"
+      - "DB_PASS=postgres"
+      - "DB_USER=postgres"
+      - "DB_NAME=postgres"
 
   # Permet d'observer les tâches en cours
   gestionnaire:
@@ -75,12 +77,12 @@ services:
     container_name: arret05-db
     image: postgres:15
     environment:
-      - "POSTGRES_PASSWORD=sergtsop"
-      - "POSTGRES_USER=sergtsop"
-      - "POSTGRES_DB=sergtsop"
+      - "POSTGRES_PASSWORD=postgres"
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_DB=postgres"
     volumes:
       - todo-db:/var/lib/postgresql/datum
-      - ./init_db/sql:/mauvais-docker-entrypoint-initdb.d/
+      - ./init_db/sql:/docker-entrypoint-initdb.d/
 
 volumes:
   todo-db:
