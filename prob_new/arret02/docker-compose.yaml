@@ -8,38 +8,36 @@ services:
       container_name: arret02-c1
       image: arret02-client
       tty: true
-      environment:
-        - MONSERVEUR='s1'
-        - MONNOM='c1'
       build:
         context: .
         dockerfile: Dockerfile.client
-      
+      environment:
+        - MONNOM='Joe'
+        - MONSERVEUR='s1' 
     s1:
       # Serveur - Traite les demandes todo
       container_name: arret02-s1
+      build:
+        context: .
+        dockerfile: Dockerfile.serveur
       image: arret02-serveur
       tty: true
       volumes:
         - "./tmp_todo1:/todo"
       environment:
-        - MONSERVEUR='s1'
-        - MONNOM='c1'
-      build:
-        context: .
-        dockerfile: Dockerfile.serveur
+        - MYNAME='Why is this one in english?'
 
     gestionnaire:
       # Permet d'observer les tâches en cours
       container_name: arret02-gestionnaire
+      build:
+        context: .
+        dockerfile: Dockerfile.gestionnaire
       image: arret02-gestionnaire
       tty: true
       environment:
         - MONSERVEUR='s1'
         - MONNOM='c1'
-      build:
-        context: .
-        dockerfile: Dockerfile.gestionnaire
 
 # Réseau par défaut
 networks:

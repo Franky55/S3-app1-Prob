@@ -8,34 +8,12 @@ services:
       container_name: arret04-c1
       image: arret04-client
       tty: true
-      environment:
-        - MONSERVEUR='s1'
-        - MONNOM='c1'
-      build:
-          context: .
-          dockerfile: Dockerfile.client
 
     c2:
-      container_name: arret04-c2
-      image: arret04-client
       tty: true
-      environment:
-        - MONSERVEUR='s1'
-        - MONNOM='c2'
-      build:
-          context: .
-          dockerfile: Dockerfile.client
 
     c3:
-      container_name: arret04-c3
-      image: arret04-client
       tty: true
-      environment:
-        - MONSERVEUR='s1'
-        - MONNOM='c3'
-      build:
-          context: .
-          dockerfile: Dockerfile.client
       
     s1:
       # Serveur unique - Traite les demandes todo
@@ -44,24 +22,12 @@ services:
       tty: true
       volumes:
         - "./tmp_todo1:/todo"
-      environment:
-        - MONSERVEUR='s1'
-        - MONNOM='c1,c2,c3'
-      build:
-          context: .
-          dockerfile: Dockerfile.serveur
      
     gestionnaire:
       # Permet d'observer les tâches en cours
       container_name: arret04-gestionnaire
       image: arret04-gestionnaire
       tty: true
-      environment:
-        - MONSERVEUR='s1'
-        - MONNOM='c1,c2,c3'
-      build:
-          context: .
-          dockerfile: Dockerfile.gestionnaire
 
 # Réseau par défaut
 networks:

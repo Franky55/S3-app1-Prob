@@ -8,35 +8,12 @@ services:
       container_name: arret03-c1
       image: arret03-client
       tty: true
-      environment:
-        - MONSERVEUR='s1'
-        - MONNOM='c1'
-      build:
-          context: .
-          dockerfile: Dockerfile.client
 
     c2:
-      container_name: arret03-c2
-      image: arret03-client
       tty: true
-      environment:
-        - MONSERVEUR='s2'
-        - MONNOM='c2'
-      build:
-          context: .
-          dockerfile: Dockerfile.client
 
     c3:
-      container_name: arret03-c3
-      image: arret03-client
       tty: true
-      environment:
-        - MONSERVEUR='s3'
-        - MONNOM='c3'
-      build:
-          context: .
-          dockerfile: Dockerfile.client
-
       
     s1:
       # Premier serveur - Traite les demandes todo
@@ -45,38 +22,12 @@ services:
       tty: true
       volumes:
         - "./tmp_todo1:/todo"
-      environment:
-        - MONSERVEUR='s1'
-        - MONNOM='c1'
-      build:
-          context: .
-          dockerfile: Dockerfile.serveur
 
     s2:
-      container_name: arret03-s2
-      image: arret03-serveur
       tty: true
-      volumes:
-        - "./tmp_todo2:/todo"
-      environment:
-        - MONSERVEUR='s2'
-        - MONNOM='c2'
-      build:
-          context: .
-          dockerfile: Dockerfile.serveur
 
     s3:
-      container_name: arret03-s3
-      image: arret03-serveur
       tty: true
-      volumes:
-        - "./tmp_todo3:/todo"
-      environment:
-        - MONSERVEUR='s3'
-        - MONNOM='c3'
-      build:
-          context: .
-          dockerfile: Dockerfile.serveur
 
     gestionnaire:
       container_name: arret03-gestionnaire
@@ -85,9 +36,6 @@ services:
       environment:
         - MONSERVEUR='s1,s2,s3'
         - MONNOM='c1,c2,c3'
-      build:
-          context: .
-          dockerfile: Dockerfile.gestionnaire
 
 # Réseau par défaut
 networks:
