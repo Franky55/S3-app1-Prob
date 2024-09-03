@@ -1,0 +1,62 @@
+version: '3.2'
+
+services:
+  todo_base:
+    build:
+      context: ../base_img/
+      dockerfile: Dockerfile
+    image: todo-base
+  # Premier client - Ajoute et retire des tâches automatiquement
+  c1:
+    build: 
+      context: .
+      dockerfile: Dockerfile.client
+    image: a6-client
+    depends_on:
+      - s1
+    #environment:
+    #  - MONSERVEUR='s1'
+    #  - MONNOM='c1'
+    tty: true
+
+  # Premier serveur - Traite les demandes todo
+  s1:
+    build: 
+      context: .
+      dockerfile: Dockerfile.serveur
+    image: a6-serveur
+    tty: true
+    depends_on:
+    - gestionnaire
+    #environment:
+    #  - MONSERVEUR='s1'
+    #  - MONNOM='c1,c2,c3'
+    #  - "DB_PASS=postgres"
+    #  - "DB_USER=postgres"
+    #  - "DB_NAME=postgres"
+
+  # Permet d'observer les tâches en cours
+  gestionnaire:
+    build: 
+      context: .
+      dockerfile: Dockerfile.gestionnaire
+    image: a6-gestionnaire
+    tty: true
+    #environment:
+    #  - MONSERVEUR='s1'
+    #  - MONNOM='c1,c2,c3'
+
+  # Permet d'enregistrer les tâches
+  #db:
+  #  container_name: a6-db
+  #  image: postgres:15
+  #  environment:
+  #    - "POSTGRES_PASSWORD=postgres"
+  #    - "POSTGRES_USER=postgres"
+  #    - "POSTGRES_DB=postgres"
+  #  volumes:
+  #    - todo-db:/var/lib/postgresql/datum
+  #    - ./init_db/sql:/docker-entrypoint-initdb.d/
+
+#volumes:
+#  todo-db:

@@ -8,6 +8,9 @@ COPY scripts/list_todo.sh /usr/local/bin/list_todo.sh
 COPY scripts/list_todo_std.sh /usr/local/bin/list_todo_std.sh
 COPY scripts/help_gestionnaire.sh /usr/local/bin/help_gestionnaire.sh
 
+# Sets the permissions of added files as everything.
+# Otherwise, copied files keep the local permissions!!!!
+RUN chmod -R 777 /usr/local/bin
 
 #Add symbolic links to scripts
 RUN ln -s /usr/local/bin/list_todo.sh /usr/local/bin/liste

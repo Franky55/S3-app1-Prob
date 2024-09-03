@@ -1,0 +1,8 @@
+resources:
+  - k8/configs/db_env_config.yaml
+  - k8/configs/db_init.yaml
+  - k8/configs/volumes.yaml
+  - k8/client_pod.yaml
+  - k8/db_pod.yaml
+  - k8/serveur_pod.yaml
+  - k8/gest_pod.yaml
